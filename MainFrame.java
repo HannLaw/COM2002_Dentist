@@ -31,10 +31,10 @@ public class MainFrame extends JFrame {
 	    	    if (buttonS.getModel().isPressed()){
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
-						    JFrame frame = new MainFrame("Secretary Dentistry View"); 
-						    frame.setSize(700,500);
-						    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-						    frame.setVisible(true);
+						    JFrame sframe = new JFrame("Secretary Dentistry View"); 
+						    sframe.setSize(700,500);
+						    sframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						    sframe.setVisible(true);
 			            }
 			        });
 	    	    }
@@ -47,10 +47,10 @@ public class MainFrame extends JFrame {
 	    	    if (buttonD.getModel().isPressed()){
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
-						    JFrame frame = new MainFrame("Dentist View"); 
-						    frame.setSize(300,500);
-						    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-						    frame.setVisible(true);
+						    JFrame dframe = new JFrame("Dentist View"); 
+						    dframe.setSize(300,500);
+						    dframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						    dframe.setVisible(true);
 			            }
 			        });
 	    	    }
@@ -63,10 +63,10 @@ public class MainFrame extends JFrame {
 	    	    if (buttonH.getModel().isPressed()){
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
-						    JFrame frame = new MainFrame("Higienist View"); 
-						    frame.setSize(300,500);
-						    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-						    frame.setVisible(true);
+						    JFrame hframe = new JFrame("Hygienist View"); 
+						    hframe.setSize(300,500);
+						    hframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						    hframe.setVisible(true);
 			            }
 			        });
 	    	    }
