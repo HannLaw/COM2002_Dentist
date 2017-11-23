@@ -29,7 +29,6 @@ CREATE DATABASE dentistry;
     endTime TIME NOT NULL,
     partner ENUM('Dentist', 'Hygienist') NOT NULL,
     patientID INT UNSIGNED NOT NULL DEFAULT 0,
-    cost FLOAT NULL,
     treatmentName VARCHAR(20) NOT NULL,
 	seen BOOLEAN NOT NULL,
     PRIMARY KEY (dateOfAppointment , startTime , partner)
@@ -37,7 +36,8 @@ CREATE DATABASE dentistry;
 
  CREATE TABLE Treatments (
     treatmentName VARCHAR(20) PRIMARY KEY NOT NULL,
-    cost FLOAT NOT NULL
+    cost FLOAT NOT NULL,
+	lengthOfTreatment INT NOT NULL
 );
 
  CREATE TABLE HealthCarePlans (
@@ -66,16 +66,16 @@ CREATE DATABASE dentistry;
  
  INSERT INTO Appointments
  VALUES
-   (2018-09-08,14:30:00,14:50:00, 'Dentist', 2, 45.00, "Check-Up",TRUE),
-   (2018-09-08,14:30:00,14:50:00, 'Hygienist', 3, 45.00, "Hygiene",FALSE);
+   (2018-09-08,14:30:00,14:50:00, 'Dentist', 2, "Check-Up",TRUE),
+   (2018-09-08,14:30:00,14:50:00, 'Hygienist', 3, "Hygiene",FALSE);
  
  INSERT INTO Treatments 
  VALUES
-   ("Check-Up", 45.00),
-   ("Amalgam-Filling", 90.00),
-   ("White-Composite-Filling", 150.00),
-   ("Gold-Crown", 500.00),
-   ("Hygiene", 45.00);  
+   ("Check-Up", 45.00,30),
+   ("Amalgam-Filling", 90.00,60),
+   ("White-Composite-Filling", 150.00,60),
+   ("Gold-Crown", 500.00,60),
+   ("Hygiene", 45.00,30);  
  
  INSERT INTO HealthCarePlans 
  VALUES
