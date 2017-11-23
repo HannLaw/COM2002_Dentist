@@ -6,6 +6,7 @@ public class HealthCarePlan {
 	private int checkUpsCovered;
 	private int hygienistVisitsCovered;
 	private int repairsCovered;
+	private float monthlyCost;
 
 	public HealthCarePlan(Enum nameOfPlan, int checkUpsCovered, int hygienistVisitsCovered, int repairsCovered, float monthlyCost) {
 		this.nameOfPlan = nameOfPlan;
