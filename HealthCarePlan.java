@@ -1,14 +1,17 @@
 import java.util.Date;
 
+public enum NoP {
+  NHS, MAINTENANCE, ORALHEALTH, DENTALREPAIR, NOPLAN
+}
 public class HealthCarePlan {
 
-	private Enum nameOfPlan;
+	private NoP nameOfPlan;
 	private int checkUpsCovered;
 	private int hygienistVisitsCovered;
 	private int repairsCovered;
-	private float monthlyCost;
+	private double monthlyCost;
 
-	public HealthCarePlan(Enum nameOfPlan, int checkUpsCovered, int hygienistVisitsCovered, int repairsCovered, float monthlyCost) {
+	public HealthCarePlan(NoP nameOfPlan, int checkUpsCovered, int hygienistVisitsCovered, int repairsCovered, double monthlyCost) {
 		this.nameOfPlan = nameOfPlan;
 		this.checkUpsCovered = checkUpsCovered;
 		this.hygienistVisitsCovered = hygienistVisitsCovered;
@@ -16,7 +19,7 @@ public class HealthCarePlan {
 		this.monthlyCost = monthlyCost;
 	}
 
-	public Enum getNameOfPlan() {
+	public NoP getNameOfPlan() {
 		return nameOfPlan;
 	}
 
@@ -28,7 +31,7 @@ public class HealthCarePlan {
 		return hygienistVisitsCovered;
 	}
 
-	public void setNameOfPlan(Enum nameOfPlan) {
+	public void setNameOfPlan(NoP nameOfPlan) {
 		this.nameOfPlan = nameOfPlan;
 	}
 
@@ -39,8 +42,8 @@ public class HealthCarePlan {
 	public void setRepairsCovered(int repairsCovered) {
 		this.repairsCovered = repairsCovered;
 	}
-	
-	public void setMonthlyCost(float monthlyCost) {
+
+	public void setMonthlyCost(double monthlyCost) {
 		this.monthlyCost = monthlyCost;
 	}
 }

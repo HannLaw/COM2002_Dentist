@@ -23,7 +23,7 @@ public class PatientRecord {
 	private int remainingHygieneVisits;
 	private int remainingRepairs;
 
-	public PatientRecord(Enum title, Enum nameOfPlan, String forename, String surname, String contactNumber, String houseNumber, String postCode, Date dateOfBirth, int patientID, int remainingCheckUps, int remainingHygieneVisits, int remainingRepairs) {
+	public PatientRecord(Ttl title, NoP nameOfPlan, String forename, String surname, String contactNumber, String houseNumber, String postCode, Date dateOfBirth, int patientID, int remainingCheckUps, int remainingHygieneVisits, int remainingRepairs) {
 		this.title = title;
 		this.nameOfPlan = nameOfPlan;
 		this.forename = forename;
@@ -38,11 +38,11 @@ public class PatientRecord {
 		this.remainingRepairs = remainingRepairs;
 	}
 
-	public Enum getTitle() {
+	public Ttl getTitle() {
 		return title;
 	}
 
-	public Enum getNameOfPlan() {
+	public NoP getNameOfPlan() {
 		return nameOfPlan;
 	}
 
@@ -86,11 +86,11 @@ public class PatientRecord {
 		return remainingRepairs;
 	}
 
-	public void setTitle(Enum title) {
+	public void setTitle(Ttl title) {
 		this.title =  title;
 	}
 
-	public void setNameOfPlan(Enum nameOfPlan) {
+	public void setNameOfPlan(NoP nameOfPlan) {
 		this.nameOfPlan =  nameOfPlan;
 	}
 
