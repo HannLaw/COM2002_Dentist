@@ -39,8 +39,8 @@ CREATE DATABASE dentistry;
     cost FLOAT NOT NULL
 );
 
- CREATE TABLE Health_Care_Plans (
-    healthCareName VARCHAR(20) NOT NULL PRIMARY KEY,
+ CREATE TABLE HealthCarePlans (
+    healthCareName ENUM('NHS','MAINTENANCE','ORALHEALTH','DENTALREPAIR', 'NOPLAN') NOT NULL PRIMARY KEY,
     checkUps INT NOT NULL,
     hygieneVisits INT NOT NULL,
 	repairs INT NULL,
@@ -76,9 +76,9 @@ CREATE DATABASE dentistry;
    ("Gold-Crown", 500.00),
    ("Hygiene", 45.00);  
  
- INSERT INTO Health_Care_Plans 
+ INSERT INTO HealthCarePlans 
  VALUES
-   ("NHS-Free-Plan", 2, 2, 6),
-   ("Maintenance-Plan", 2, 2, 0, 15.00),
-   ("Oral-Health-Plan", 2, 4, 0, 21.00),
-   ("Dental-Repair-Plan", 2, 2, 2, 36.00); 
+   ('NHS', 2, 2, 6),
+   ('MAINTENANCE', 2, 2, 0, 15.00),
+   ('ORALHEALTH', 2, 4, 0, 21.00),
+   ('DENTALREPAIR', 2, 2, 2, 36.00); 
