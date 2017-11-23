@@ -5,7 +5,7 @@ public enum Ttl {
 }
 
 public enum NoP {
-  NHS, MAINTENANCE, ORALHEALTH, DENTALREPAIR
+  NHS, MAINTENANCE, ORALHEALTH, DENTALREPAIR, NOPLAN
 }
 
 public class PatientRecord {
