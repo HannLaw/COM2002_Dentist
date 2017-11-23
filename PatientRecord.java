@@ -27,7 +27,7 @@ public class PatientRecord {
 		this.patientID = patientID; 
 		this.remainingCheckUps = remainingCheckUps; 
 		this.remainingHygieneVisits = remainingHygieneVisits;
-        this.remainingRepairs = remainingRepairs;		
+		this.remainingRepairs = remainingRepairs;		
 	}
 	
 	public Enum getTitle() {
