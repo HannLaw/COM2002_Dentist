@@ -26,8 +26,17 @@ public class HealthCarePlan {
 		return hygienistVisitsCovered;
 	}
 
+	public int getRepairsCovered() {
+		return repairsCovered;
+	}
+
+
 	public void setNameOfPlan(Enum nameOfPlan) {
 		this.nameOfPlan =  nameOfPlan;
+	}
+
+	public void setHygienistVisitsCovered(int hygienistVisitsCovered) {
+		this.hygienistVisitsCovered =  hygienistVisitsCovered;
 	}
 
 	public void setCheckUpsCovered(int checkUpsCovered) {
