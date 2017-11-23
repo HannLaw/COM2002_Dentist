@@ -6,14 +6,12 @@ public class HealthCarePlan {
 	private int checkUpsCovered;
 	private int hygienistVisitsCovered;
 	private int repairsCovered;
-	private float monthlyCost;
 
-	public HealthCarePlan(Enum nameOfPlan, int checkUpsCovered, int hygienistVisitsCovered, int repairsCovered, float monthlyCost) {
+	public HealthCarePlan(Enum nameOfPlan, int checkUpsCovered, int hygienistVisitsCovered, int repairsCovered) {
 		this.nameOfPlan = nameOfPlan;
 		this.checkUpsCovered = checkUpsCovered;
 		this.hygienistVisitsCovered = hygienistVisitsCovered;
 		this.repairsCovered = repairsCovered;
-		this.monthlyCost = monthlyCost;
 	}
 
 	public Enum getNameOfPlan() {
@@ -28,19 +26,24 @@ public class HealthCarePlan {
 		return hygienistVisitsCovered;
 	}
 
+	public int getRepairsCovered() {
+		return repairsCovered;
+	}
+
+
 	public void setNameOfPlan(Enum nameOfPlan) {
-		this.nameOfPlan = nameOfPlan;
+		this.nameOfPlan =  nameOfPlan;
+	}
+
+	public void setHygienistVisitsCovered(int hygienistVisitsCovered) {
+		this.hygienistVisitsCovered =  hygienistVisitsCovered;
 	}
 
 	public void setCheckUpsCovered(int checkUpsCovered) {
-		this.checkUpsCovered = checkUpsCovered;
+		this.checkUpsCovered =  checkUpsCovered;
 	}
 
 	public void setRepairsCovered(int repairsCovered) {
-		this.repairsCovered = repairsCovered;
-	}
-	
-	public void setMonthlyCost(float monthlyCost) {
-		this.monthlyCost = monthlyCost;
+		this.repairsCovered =  repairsCovered;
 	}
 }
