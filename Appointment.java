@@ -10,11 +10,11 @@ public class Appointment {
 		this.endTime = endTime;
 	}
 
-	public int getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
-	public int getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
 
@@ -24,5 +24,11 @@ public class Appointment {
 
 	public void setEndTime(Date endTime) {
 		this.endTime =  endTime;
+	}
+
+	public String toString(){
+		String appointment;
+		appointment = "Start time: " + startTime + " End time: " + endTime;
+		return appointment;
 	}
 }
