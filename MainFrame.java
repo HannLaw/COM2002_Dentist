@@ -31,7 +31,7 @@ public class MainFrame extends JFrame {
 	    	    if (buttonS.getModel().isPressed()){
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
-						    JFrame frame = new MainFrame("Secretary Dentistry View"); // MainFrame Class doesn't currently work
+						    JFrame frame = new MainFrame("Secretary Dentistry View"); 
 						    frame.setSize(700,500);
 						    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 						    frame.setVisible(true);
@@ -44,10 +44,10 @@ public class MainFrame extends JFrame {
 	    buttonD.addActionListener(new ActionListener() {
 	    	
 	    	public void actionPerformed(ActionEvent e) {
-	    	    if (buttonS.getModel().isPressed()){
+	    	    if (buttonD.getModel().isPressed()){
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
-						    JFrame frame = new MainFrame("Dentist View"); // MainFrame Class doesn't currently work
+						    JFrame frame = new MainFrame("Dentist View"); 
 						    frame.setSize(300,500);
 						    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 						    frame.setVisible(true);
@@ -60,10 +60,10 @@ public class MainFrame extends JFrame {
 	    buttonH.addActionListener(new ActionListener() {
 	    	
 	    	public void actionPerformed(ActionEvent e) {
-	    	    if (buttonS.getModel().isPressed()){
+	    	    if (buttonH.getModel().isPressed()){
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
-						    JFrame frame = new MainFrame("Higienist View"); // MainFrame Class doesn't currently work
+						    JFrame frame = new MainFrame("Higienist View"); 
 						    frame.setSize(300,500);
 						    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 						    frame.setVisible(true);
