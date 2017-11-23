@@ -7,10 +7,13 @@ public class PatientRecord {
 	private String forename;
 	private String surname;
 	private String contactNumber;
+	private String houseNumber;
+	private String postCode;
 	private Date dateOfBirth;
 	private int patientID;
 	private int remainingCheckUps;
 	private int remainingHygieneVisits;
+	private int remainingRepairs;
 	
 	public PatientRecord(Enum title, Enum nameOfPlan, String forename, String surname, String contactNumber, Date dateOfBirth, int patientID, int remainingCheckUps, int remainingHygieneVisits) {
 		this.title = title;
@@ -18,10 +21,13 @@ public class PatientRecord {
 		this.forename = forename; 
 		this.surname = surname; 
 		this.contactNumber = contactNumber; 
+		this.houseNumber = houseNumber;
+		this.postCode = postCode;
 		this.dateOfBirth = dateOfBirth; 
 		this.patientID = patientID; 
 		this.remainingCheckUps = remainingCheckUps; 
-		this.remainingHygieneVisits = remainingHygieneVisits; 
+		this.remainingHygieneVisits = remainingHygieneVisits;
+        this.remainingRepairs = remainingRepairs;		
 	}
 	
 	public Enum getTitle() {
@@ -44,6 +50,14 @@ public class PatientRecord {
 		return contactNumber;
 	}
 	
+	public String getHouseNumber() {
+		return houseNumber;
+	}
+	
+	public String getPostCode() {
+		return postCode;
+	}
+	
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
@@ -58,6 +72,10 @@ public class PatientRecord {
 	
 	public int getRemainingHygieneVisits() {
 		return remainingHygieneVisits;
+	}
+	
+	public int getRemainingRepairs() {
+		return remainingRepairs;
 	}
 	
 	public void setTitle(Enum title) {
@@ -80,6 +98,14 @@ public class PatientRecord {
 		this.contactNumber =  contactNumber;
 	}
 	
+	public void setHouseNumber(String houseNumber) {
+		this.houseNumber =  houseNumber;
+	}
+	
+	public void setPostCode(String postCode) {
+		this.postCode =  postCode;
+	}
+	
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth =  dateOfBirth;
 	}
@@ -95,4 +121,9 @@ public class PatientRecord {
 	public void setRemainingHygieneVisits(int remainingHygieneVisits) {
 		this.remainingHygieneVisits =  remainingHygieneVisits;
 	}
+	
+	public void setRemainingRepairs(int remainingRepairs) {
+		this.remainingRepairs =  remainingRepairs;
+	}
+	
 }
