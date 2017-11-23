@@ -5,17 +5,17 @@ public class Appointment {
 	private Date startTime;
 	private Date endTime;
 
-	public HealthCarePlan(Date startTime, Date endTime) {
+	public Appointment(Date startTime, Date endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
 
-	public int getstartTime() {
+	public int getStartTime() {
 		return startTime;
 	}
 
-	public int getHygienistVisitsCovered() {
-		return hygienistVisitsCovered;
+	public int getEndTime() {
+		return endTime;
 	}
 
 	public void setStartTime(Date startTime) {
