@@ -3,48 +3,48 @@ CREATE DATABASE dentistry;
     title ENUM('Mr', 'Mrs', 'Miss', 'Ms', 'Dr') NOT NULL,
     forename VARCHAR(20) NOT NULL,
     surname VARCHAR(20) NOT NULL,
-    date_of_birth DATE NOT NULL,
-    phone_number CHAR(11) NOT NULL,
-    house_number VARCHAR(5) NOT NULL,
-    post_code VARCHAR(8) NOT NULL,
-    health_care_plan VARCHAR(20) NULL,
-    prepaid_check_ups_used INT NULL,
-    prepaid_hygiene_visits_used INT NULL,
-    prepaid_repairs_used INT NULL,
-    patient_ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY
+    dateOfBirth DATE NOT NULL,
+    phoneNumber CHAR(11) NOT NULL,
+    houseNumber VARCHAR(5) NOT NULL,
+    postcode VARCHAR(8) NOT NULL,
+    healthCarePlan VARCHAR(20) NULL,
+    prepaidCheckUpsUsed INT NULL,
+    prepaidHygieneVisitsUsed INT NULL,
+    prepaidRepairsUsed INT NULL,
+    patientID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY
 );
 
  CREATE TABLE Addresses (
-    house_number VARCHAR(5) NOT NULL,
-    post_code VARCHAR(8) NOT NULL,
-    street_name VARCHAR(20) NOT NULL,
-    district_name VARCHAR(20),
+    houseNumber VARCHAR(5) NOT NULL,
+    postcode VARCHAR(8) NOT NULL,
+    streetName VARCHAR(20) NOT NULL,
+    districtName VARCHAR(20),
     city VARCHAR(20) NOT NULL,
-    PRIMARY KEY (house_number , post_code)
+    PRIMARY KEY (houseNumber , postcode)
 );
 
  CREATE TABLE Appointments (
-    date_of_appointment DATE NOT NULL,
-    start_time TIME NOT NULL,
-    end_time TIME NOT NULL,
+    dateOfAppointment DATE NOT NULL,
+    startTime TIME NOT NULL,
+    endTime TIME NOT NULL,
     partner ENUM('Dentist', 'Hygienist') NOT NULL,
-    patient_ID INT UNSIGNED NOT NULL DEFAULT 0,
+    patientID INT UNSIGNED NOT NULL DEFAULT 0,
     cost FLOAT NULL,
-    treatment_name VARCHAR(20) NOT NULL,
-    PRIMARY KEY (date_of_appointment , start_time , partner)
+    treatmentName VARCHAR(20) NOT NULL,
+    PRIMARY KEY (dateOfAppointment , startTime , partner)
 );
 
  CREATE TABLE Treatments (
-    treatment_name VARCHAR(20) PRIMARY KEY NOT NULL,
+    treatmentName VARCHAR(20) PRIMARY KEY NOT NULL,
     cost FLOAT NOT NULL
 );
 
  CREATE TABLE Health_Care_Plans (
-    health_care_name VARCHAR(20) NOT NULL PRIMARY KEY,
-    check_ups INT NOT NULL,
-    hygiene_visits INT NOT NULL,
-	repair_work INT NULL,
-	monthly_cost FLOAT NULL DEFAULT 0.0
+    healthCareName VARCHAR(20) NOT NULL PRIMARY KEY,
+    checkUps INT NOT NULL,
+    hygieneVisits INT NOT NULL,
+	repairs INT NULL,
+	monthlyCost FLOAT NULL DEFAULT 0.0
 );
 
  INSERT INTO Patients 
