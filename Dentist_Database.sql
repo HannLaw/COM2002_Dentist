@@ -48,38 +48,34 @@ CREATE DATABASE dentistry;
 	monthlyCost FLOAT NULL DEFAULT 0.0
 );
 
- INSERT INTO Patients 
+ INSERT INTO Patients
  VALUES
-   ('Mr', "BLANK", "-", 1973-11-11, "00000000000","-","-",
-    "-"),
-   ('Mr', "Dandy", "Adams", 1973-11-11, "04732111910","134","QE3 1LZ",
-    "Lil Lane"),
-   ('Mrs', "Sandy", "Adams", 1986-10-10, "04732111910","134", "QE3 1LZ",
-    "Lil Lane"),
-   ('Ms', "Mandy", "Yams", 1983-11-11, "05832321961","132", "ZE4 4NZ",
-    " Low Court Drive");  
-  
- INSERT INTO Addresses 
+   ('Mr', "BLANK", "-", '1973-11-11', "00000000000","-","-",
+    "-", 0, 0, 0, default),
+   ('Mr', "Dandy", "Adams", '1973-11-11', "04732111910","134","QE3 1LZ",
+    "NHS", 0,0,0, default);
+
+ INSERT INTO Addresses
  VALUES
    ("134", "QE3 1LZ", "Lil Lane", "Dilsbry", "York"),
-   ("13B", "ZE4 4NZ", "Low Court Drive", "South Central", "York"); 
- 
+   ("13B", "ZE4 4NZ", "Low Court Drive", "South Central", "York");
+
  INSERT INTO Appointments
  VALUES
-   (2018-09-08,14:30:00,14:50:00, 'Dentist', 2, "Check-Up",TRUE),
-   (2018-09-08,14:30:00,14:50:00, 'Hygienist', 3, "Hygiene",FALSE);
- 
- INSERT INTO Treatments 
+   ('2018-09-08','14:30:00','14:50:00', 'Dentist', 2, "Check-Up",TRUE),
+   ('2018-09-08','14:30:00','14:50:00', 'Hygienist', 3, "Hygiene",FALSE);
+
+ INSERT INTO Treatments
  VALUES
    ("Check-Up", 45.00,30),
    ("Amalgam-Filling", 90.00,60),
-   ("White-Composite-Filling", 150.00,60),
+   ("WHT-CMPSTE-Filling", 150.00,60),
    ("Gold-Crown", 500.00,60),
-   ("Hygiene", 45.00,30);  
- 
- INSERT INTO HealthCarePlans 
+   ("Hygiene", 45.00,30);
+
+ INSERT INTO HealthCarePlans
  VALUES
-   ('NHS', 2, 2, 6),
+   ('NHS', 2, 2, 6, 0.0),
    ('MAINTENANCE', 2, 2, 0, 15.00),
    ('ORALHEALTH', 2, 4, 0, 21.00),
-   ('DENTALREPAIR', 2, 2, 2, 36.00); 
+   ('DENTALREPAIR', 2, 2, 2, 36.00);
