@@ -1,8 +1,6 @@
 import java.util.Date;
 
-public enum NoP {
-  NHS, MAINTENANCE, ORALHEALTH, DENTALREPAIR, NOPLAN
-}
+
 public class HealthCarePlan {
 
 	private NoP nameOfPlan;

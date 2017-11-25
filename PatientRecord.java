@@ -1,12 +1,5 @@
+
 import java.util.Date;
-
-public enum Ttl {
-  MR, MRS, MISS, MS, DR
-}
-
-public enum NoP {
-  NHS, MAINTENANCE, ORALHEALTH, DENTALREPAIR, NOPLAN
-}
 
 public class PatientRecord {
 

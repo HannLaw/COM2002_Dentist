@@ -1,6 +1,3 @@
-public enum Treatment {
-  HYGIENE, CHECKUP, SILVER_FILLING, WHITE_FILLING, GOLD_CROWN
-}
 
 public class Treatments {
 
