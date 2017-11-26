@@ -10,4 +10,5 @@ public class ViewAppt {
     private JCheckBox paidCheckBox;
     private JCheckBox deferredCheckBox;
     private JButton cancelButton;
+    private JButton submitButton;
 }
