@@ -16,8 +16,8 @@ public class MainFrame extends JFrame {
 	 
 	    setLayout(new BorderLayout());
 	    setSize(700,500);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
 	 
 	    JButton buttonS = new JButton("Secretary");
 	    JButton buttonD = new JButton("Dentist");
@@ -34,7 +34,7 @@ public class MainFrame extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
-						   SecretaryFrame sFrame = new SecretaryFrame("Secretary Dentistry View"); 
+						    SecretaryPage sFrame = new SecretaryPage("Secretary Dentistry View"); 
 			            }
 			        });
 	    	}
@@ -45,7 +45,7 @@ public class MainFrame extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
-						    PartnerFrame dFrame = new PartnerFrame("Dentist View",'D'); 
+						    PartnerPage dFrame = new Partnerpage("Dentist View"); 
 			            }
 			        }); 
 	    	}
@@ -56,7 +56,7 @@ public class MainFrame extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
-						    PartnerFrame hFrame = new PartnerFrame("Hygienist View", 'H'); 
+						    PartnerPage hFrame = new PartnerPage("Hygienist View"); 
 			            }
 			        }); 
 	    	}
