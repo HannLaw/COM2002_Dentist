@@ -1,3 +1,4 @@
+package com2002;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,11 +48,21 @@ public class SecretaryPage extends Secretary {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Secretary sec = new Secretary();
-                sec.bookAppointment(getPatientID1(), getDate1(), getT1(), t, p);
+				int ipID1;
+			    Date dateAppt;
+				Time timeAppt;
+                if (Validation.bookappointment(patientID2.getText(), date1.getText(), t1.getText(), t1.getText(), this.t.GetItemText(this.t.SelectedItem),this.p.GetItemText(this.p.SelectedItem))) {
+			    	ipID1 = getPatientID1();
+					dateAppt = getDate1();
+					timeAppt = getT1();
+					sec.bookAppointment(getPatientID1(), getDate1(), getT1(), t, p);
+			    }   
+                else {
+                    JOptionPane.showMessageDialog(new JFrame(), "Invalid Input", "Dialog", JOptionPane.ERROR_MESSAGE);	
+                }					
             }
         });
     }
-
 
     // Get methods
     String[] typeCombo = {"Checkup", "Hygiene", "Silver Filling", "White Filling", "Gold Crown"};
@@ -79,6 +90,4 @@ public class SecretaryPage extends Secretary {
         Time timeAppt = new Time(hour, minute,00);
         return timeAppt;
     }
-
-}
 }
