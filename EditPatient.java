@@ -11,7 +11,7 @@ public class EditPatient {
     private JTextField textField7;
     private JTextField textField8;
     private JTextField textField9;
-    private JButton deleteButton;
-    private JButton submitButton;
     private JComboBox comboBox1;
+    private JButton submitButton;
+    private JButton deleteButton;
 }

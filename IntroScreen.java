@@ -5,5 +5,4 @@ public class IntroScreen {
     private JPanel panel1;
     private JButton dentistButton;
     private JButton hygienistButton;
-    private JTextArea sheffieldDentalCareTextArea;
 }
