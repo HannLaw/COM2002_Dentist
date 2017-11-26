@@ -85,6 +85,31 @@ public class Secretary {
         }
 	}
 	
+	public void bookEmptyAppointment(Date d, Prtner p) throws Exception { 
+		try { 
+			
+			createConnection();
+			
+			String partner = p.name();
+			
+			preparedStatement = connect
+                    .prepareStatement("insert into  dentistry.appointments values (?, ?, ?, ? , ?, ?, ?)");
+		    preparedStatement.setDate(1, new java.sql.Date(d.getYear(), d.getMonth(), d.getDay()));
+            preparedStatement.setTime(2, new Time(00,00,00));
+            preparedStatement.setTime(3, new Time(23,59,59));
+            preparedStatement.setString(4, partner);
+            preparedStatement.setInt(5, 1);
+            preparedStatement.setString(6, "Check-Up");
+            preparedStatement.setBoolean(7, false);
+            preparedStatement.executeUpdate();
+			
+		}catch (Exception e) {
+            throw e;
+        } finally {
+            close();
+        }
+	}
+	
 	public void cancelAppointment(int PatientID, Prtner p) throws Exception { 
 		try { 
 			 
