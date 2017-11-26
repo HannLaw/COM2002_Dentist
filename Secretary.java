@@ -16,18 +16,30 @@ public class Secretary {
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
 	
-	public void viewAppointments() throws Exception { 
+	
+	public void createConnection() throws Exception { 
 		try { 
-			 
-			
 			//Create connection with database and initiate statement. 
 			Class.forName("com.mysql.jdbc.Driver");
 			connect = DriverManager
-	                .getConnection("jdbc:mysql://localhost/dentistry?"
-	                        + "user=dentistryuser&password=dentistryuserpw");
-			statement = connect.createStatement();
+					.getConnection("jdbc:mysql://localhost/dentistry?"
+	                	+ "user=dentistryuser&password=dentistryuserpw");
+             }catch (Exception e) {
+            	 	throw e;
+             } finally {
+            	 	System.out.print(" ");
+             }	
+}	
+			
+	
+	
+	public void viewAppointments() throws Exception { 
+		try { 
+			
+			createConnection();
 			
 			//Find appointments for the week UNFINISHED
+			statement = connect.createStatement();
 			resultSet = statement
 					.executeQuery("select dateOfAppointment from dentistry.appointments");
 			
@@ -49,22 +61,14 @@ public class Secretary {
 	
 	public void bookAppointment(int PatientID, Date date, Time t1, Time t2, Treatment t, Prtner p) throws Exception { 
 		try { 
-			 
-			
-			//Create connection with database and initiate statement. 
-			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager
-	                .getConnection("jdbc:mysql://localhost/dentistry?"
-	                        + "user=dentistryuser&password=dentistryuserpw");
-			statement = connect.createStatement();
+
+			createConnection();
 			
 			String treatment = t.name();
 			String partner = p.name();
 			
 			preparedStatement = connect
                     .prepareStatement("insert into  dentistry.appointments values (?, ?, ?, ? , ?, ?, ?)");
-            // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
-            // Parameters start with 1
 		    preparedStatement.setDate(1, new java.sql.Date(date.getYear(), date.getMonth(), date.getDay()));
             preparedStatement.setTime(2, t1);
             preparedStatement.setTime(3, t2);
@@ -72,6 +76,23 @@ public class Secretary {
             preparedStatement.setInt(5, PatientID);
             preparedStatement.setString(6, treatment);
             preparedStatement.setBoolean(7, false);
+            preparedStatement.executeUpdate();
+			
+		}catch (Exception e) {
+            throw e;
+        } finally {
+            close();
+        }
+	}
+	
+	public void cancelAppointment(int PatientID, Prtner p) throws Exception { 
+		try { 
+			 
+			createConnection();
+			
+            String partner = p.name();
+            preparedStatement = connect
+                    .prepareStatement("DELETE FROM appointments WHERE (patientID = " + PatientID + ") AND (partner = '" + partner + "');" );
             preparedStatement.executeUpdate();
 			
 		}catch (Exception e) {
