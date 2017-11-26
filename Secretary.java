@@ -115,19 +115,30 @@ public class Secretary {
         }
 	}
 	
-	public void bookAppointment(int patientID, Date date, Time t1, Time t2, Treatment t, Prtner p) throws Exception { 
+	public void bookAppointment(int patientID, Date date, Time t1, Treatment t, Prtner p) throws Exception { 
 		try { 
 
 			createConnection();
 			
 			String treatment = t.name();
 			String partner = p.name();
+			int timeTaken;
+			
+			
+			if (t == Treatment.CHECKUP || t == Treatment.HYGIENE ) {
+				timeTaken = 20;
+			}
+			else timeTaken = 60;
+			
+			int hours = t1.getHours(); 
+			int minutes = t1.getMinutes();
+			
 			
 			preparedStatement = connect
                     .prepareStatement("insert into  dentistry.appointments values (?, ?, ?, ? , ?, ?, ?)");
 		    preparedStatement.setDate(1, new java.sql.Date(date.getYear(), date.getMonth(), date.getDay()));
             preparedStatement.setTime(2, t1);
-            preparedStatement.setTime(3, t2);
+            preparedStatement.setTime(3, new Time(hours,timeTaken,minutes));
             preparedStatement.setString(4, partner);
             preparedStatement.setInt(5, patientID);
             preparedStatement.setString(6, treatment);
