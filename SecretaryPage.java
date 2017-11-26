@@ -79,12 +79,6 @@ public class SecretaryPage extends Secretary {
         Time timeAppt = new Time(hour, minute,00);
         return timeAppt;
     }
-    
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-
-    }
 
 }
 }
