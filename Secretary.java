@@ -127,6 +127,26 @@ public class Secretary {
         }
 	}
 	
+	public void suscribePatient(PatientRecord patient, NoP hcp) throws Exception { 
+		try { 
+			 
+			createConnection();
+			
+			patient.setNameOfPlan(hcp);
+			String nop = hcp.name();
+			int patientID = patient.getPatientID();
+			
+            preparedStatement = connect
+                    .prepareStatement("UPDATE patients SET healthCarePlan = '"+ nop + "' WHERE patientID = "+ patientID +" ;" );
+            preparedStatement.executeUpdate();
+			
+		}catch (Exception e) {
+            throw e;
+        } finally {
+            close();
+        }
+	}
+	
     private void close() {
         try {
             if (resultSet != null) {
