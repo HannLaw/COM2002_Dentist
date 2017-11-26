@@ -19,8 +19,8 @@ public class SecretaryPage extends Secretary {
     private JTextField t1;
     private JTextField firstName3;
     private JTextField surname3;
-    private JTextField dob;
-    private JTextField contact;
+    private JTextField dob1;
+    private JTextField contact1;
     private JTextField textField18;
     private JTextField textField19;
     private JTextField textField20;
@@ -41,31 +41,7 @@ public class SecretaryPage extends Secretary {
 
 
     public SecretaryPage() {
-        // Get methods
 
-        // Booking an appointment
-        public int getPatientID1() {
-            String pID1 = patientID1.getText();
-            int ipID1 = Integer.valueOf(pID1);
-            return ipID1;
-        }
-
-        public Date getDate1() {
-            String d1 = date1.getText();
-            int year = Integer.valueOf(d1.substring(6));
-            int month = Integer.valueOf(d1.substring(3,4));
-            int day = Integer.valueOf(d1.substring(0,1));
-            Date dateAppt = new Date(year,month,day);
-            return dateAppt;
-        }
-
-        public Time getT1() {
-            String time = t1.getText();
-            int hour = Integer.valueOf(time.substring(0, 1));
-            int minute = Integer.valueOf(time.substring(3, 4));
-            Time timeAppt = new Time(hour, minute,00);
-            return timeAppt;
-        }
 
         bookingSubmit.addActionListener(new ActionListener() {
             @Override
@@ -75,5 +51,40 @@ public class SecretaryPage extends Secretary {
             }
         });
     }
+
+
+    // Get methods
+    String[] typeCombo = {"Checkup", "Hygiene", "Silver Filling", "White Filling", "Gold Crown"};
+    t = new JComboBox(typeCombo);
+    // Booking an appointment
+    public int getPatientID1() {
+        String pID1 = patientID1.getText();
+        int ipID1 = Integer.valueOf(pID1);
+        return ipID1;
+    }
+
+    public Date getDate1() {
+        String d1 = date1.getText();
+        int year = Integer.valueOf(d1.substring(6));
+        int month = Integer.valueOf(d1.substring(3,4));
+        int day = Integer.valueOf(d1.substring(0,1));
+        Date dateAppt = new Date(year,month,day);
+        return dateAppt;
+    }
+
+    public Time getT1() {
+        String time = t1.getText();
+        int hour = Integer.valueOf(time.substring(0, 1));
+        int minute = Integer.valueOf(time.substring(3, 4));
+        Time timeAppt = new Time(hour, minute,00);
+        return timeAppt;
+    }
+    
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+
+    }
+
 }
 }
