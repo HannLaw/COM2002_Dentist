@@ -70,7 +70,7 @@ public class SecretaryPage extends JFrame {
         addPatientBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PatientRecord pRec = new PatientRecord(Ttl.MR,getPlan(),getFirstName3(),getSurname3(),getContactNo(),getADL1(),getPostcode(),getDoB(),patientID,remCheckups,remHygiene,remRepairs);
+                PatientRecord pRec = new PatientRecord(Ttl.MR,getPlan(),getFirstName3(),getSurname3(),getContactNo(),getADL1(),getPostcode(),getDoB(),patientID, getRemCheckups(),getRemHyg(),getRemRep());
                 Secretary sec = new Secretary();
                 sec.addPatient(pRec);
             }
@@ -180,6 +180,37 @@ public class SecretaryPage extends JFrame {
 
     public String getPostcode() {
         return pc1.getText();
+    }
+
+    public int getRemCheckups() {
+        switch(getPlan()) {
+            case NOPLAN:
+                return 0;
+            default:
+                return 2;
+        }
+    }
+
+    public int getRemHyg() {
+        switch(getPlan()) {
+            case NOPLAN:
+                return 0;
+            case ORALHEALTH:
+                return 4;
+            default:
+                return 2;
+        }
+    }
+
+    public int getRemRep() {
+        switch (getPlan()) {
+            case NHS:
+                return 6;
+            case DENTALREPAIR:
+                return 2;
+            default:
+                return 0;
+        }
     }
 
 }
