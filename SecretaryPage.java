@@ -171,6 +171,7 @@ public class SecretaryPage extends JFrame {
                 return NoP.DENTALREPAIR;
             default:
                 return NoP.NOPLAN;
+        }
     }
 
     public String getADL1() {
@@ -180,8 +181,5 @@ public class SecretaryPage extends JFrame {
     public String getPostcode() {
         return pc1.getText();
     }
-
-
-}
 
 }
