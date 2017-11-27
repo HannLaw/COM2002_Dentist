@@ -52,14 +52,14 @@ public class SecretaryPage extends JFrame {
 				int ipID1;
 			    Date dateAppt;
 				Time timeAppt;
-                if (Validation.bookappointment(patientID2.getText(), date1.getText(), t1.getText(), t1.getText(), (String)t.getSelectedItem(),(String)p.getSelectedItem())) {
+                if (Validation.bookappointment(patientID1.getText(), date1.getText(), t1.getText(), t1.getText(), (String)t.getSelectedItem(),(String)p.getSelectedItem())) {
 			    	try {
                         ipID1 = getPatientID1();
                         dateAppt = getDate1();
                         timeAppt = getT1();
                         sec.bookAppointment(getPatientID1(), getDate1(), getT1(), getT(), getP());
                     } catch (Exception a) {
-			    	    System.out.println("Failure");
+                        JOptionPane.showMessageDialog(new JFrame(), "Invalid Input", "Dialog", JOptionPane.ERROR_MESSAGE);
                     }
 			    }   
                 else {
@@ -67,9 +67,19 @@ public class SecretaryPage extends JFrame {
                 }					
             }
         });
+        addPatientBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PatientRecord pRec = new PatientRecord(Ttl.MR,getPlan(),getFirstName3(),getSurname3(),getContactNo(),getADL1(),getPostcode(),getDoB(),patientID,remCheckups,remHygiene,remRepairs);
+                Secretary sec = new Secretary();
+                sec.addPatient(pRec);
+            }
+        });
     }
 
     // Get methods
+
+
     // Booking an appointment
     public int getPatientID1() {
         String pID1 = patientID1.getText();
@@ -123,5 +133,55 @@ public class SecretaryPage extends JFrame {
                 return Prtner.DENTIST;
         }
     }
+
+    // Adding a patient
+    public String getFirstName3() {
+        return firstName3.getText();
+    }
+
+    public String getSurname3() {
+        return surname3.getText();
+    }
+
+    public Date getDoB() {
+        String birth = dob1.getText();
+        int yearB = Integer.valueOf(birth.substring(6));
+        int monthB = Integer.valueOf(birth.substring(3,4));
+        int dayB = Integer.valueOf(birth.substring(0,1));
+        Date dateB = new Date(yearB,monthB,dayB);
+        return dateB;
+    }
+
+    public String getContactNo() {
+        return contact1.getText();
+    }
+
+    public NoP getPlan() {
+        String name = (String)plan2.getSelectedItem();
+        switch(name) {
+            case ("No Plan"):
+                return NoP.NOPLAN;
+            case ("NHS"):
+                return NoP.NHS;
+            case ("Maintenance Filling"):
+                return NoP.MAINTENANCE;
+            case ("Oral Health"):
+                return NoP.ORALHEALTH;
+            case ("Dental Repair"):
+                return NoP.DENTALREPAIR;
+            default:
+                return NoP.NOPLAN;
+    }
+
+    public String getADL1() {
+            return adl1_1.getText();
+    }
+
+    public String getPostcode() {
+        return pc1.getText();
+    }
+
+
+}
 
 }
