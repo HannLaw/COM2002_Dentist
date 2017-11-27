@@ -1,4 +1,3 @@
-package com2002;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,7 +54,7 @@ public class SecretaryPage extends JFrame {
 			    	ipID1 = getPatientID1();
 					dateAppt = getDate1();
 					timeAppt = getT1();
-					sec.bookAppointment(getPatientID1(), getDate1(), getT1(), t, p);
+					sec.bookAppointment(getPatientID1(), getDate1(), getT1(), getT(), getP());
 			    }   
                 else {
                     JOptionPane.showMessageDialog(new JFrame(), "Invalid Input", "Dialog", JOptionPane.ERROR_MESSAGE);	
@@ -93,20 +92,38 @@ public class SecretaryPage extends JFrame {
         String type = this.t.GetItemText(this.t.SelectedItem);
         switch(type) {
             case (type.equals("Checkup")):
-                return CHECKUP;
+                return Treatment.CHECKUP;
                 break;
             case (type.equals("Hygiene")):
-                return HYGIENE;
+                return Treatment.HYGIENE;
                 break;
             case (type.equals("Silver Filling")):
-                return SILVER_FILLING;
+                return Treatment.SILVER_FILLING;
                 break;
             case (type.equals("White filling")):
-                return WHITE_FILLING;
+                return Treatment.WHITE_FILLING;
                 break;
             case (type.equals("Gold Crown")):
-                return GOLD_CROWN;
+                return Treatment.GOLD_CROWN;
+                break;
+            default:
+                return Treatment.CHECKUP;
+        }
+    }
+
+    public Prtner getP() {
+        String ptnr = this.p.GetItemText(this.t.SelectedItem);
+        switch(ptnr) {
+            case (ptnr.equals("Dentist")):
+                return Prtner.DENTIST;
+                break;
+            case (ptnr.equals("Hygienist")):
+                return Prtner.HYGIENIST;
+                break;
+            default:
+                return Prtner.DENTIST;
                 break;
         }
     }
+
 }
