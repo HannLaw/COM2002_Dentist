@@ -30,7 +30,7 @@ CREATE DATABASE dentistry;
     partner ENUM('Dentist', 'Hygienist') NOT NULL,
     patientID INT UNSIGNED NOT NULL DEFAULT 0,
     treatmentName VARCHAR(20) NOT NULL,
-	seen BOOLEAN NOT NULL,
+	  seen BOOLEAN NOT NULL,
     PRIMARY KEY (dateOfAppointment , startTime , partner)
 );
 
@@ -44,8 +44,8 @@ CREATE DATABASE dentistry;
     healthCareName ENUM('NHS','MAINTENANCE','ORALHEALTH','DENTALREPAIR', 'NOPLAN') NOT NULL PRIMARY KEY,
     checkUps INT NOT NULL,
     hygieneVisits INT NOT NULL,
-	repairs INT NULL,
-	monthlyCost FLOAT NULL DEFAULT 0.0
+	  repairs INT NULL,
+	  monthlyCost FLOAT NULL DEFAULT 0.0
 );
 
  INSERT INTO Patients
@@ -62,6 +62,11 @@ CREATE DATABASE dentistry;
 
  INSERT INTO Appointments
  VALUES
+   ('2017-07-27','14:30:00','14:50:00', 'Dentist', 50, "Check-Up",TRUE),
+   ('2017-07-30','14:30:00','15:00:00', 'Hygienist', 50, "Hygiene",TRUE),
+   ('2017-09-03','14:30:00','15:30:00', 'Dentist', 50, "Gold-Crown",TRUE),
+   ('2017-09-10','14:30:00','15:00:00', 'Hygienist', 50, "Hygiene",TRUE),
+   ('2017-12-09','14:30:00','14:50:00', 'Dentist', 96, "Check-Up",FALSE),
    ('2018-09-08','14:30:00','14:50:00', 'Dentist', 2, "Check-Up",TRUE),
    ('2018-09-08','14:30:00','14:50:00', 'Hygienist', 3, "Hygiene",FALSE);
 
