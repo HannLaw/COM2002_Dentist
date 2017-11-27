@@ -21,21 +21,23 @@ public class SecretaryPage extends JFrame {
     private JTextField surname3;
     private JTextField dob1;
     private JTextField contact1;
-    private JTextField textField18;
-    private JTextField textField19;
-    private JTextField textField20;
+    private JTextField patientID3;
+    private JTextField firstName4;
+    private JTextField surname4;
+    private JTextField weekDate1;
+    private JTextField weekDate2;
     private JComboBox t;
     private JButton bookingSubmit;
     private JButton searchAppt;
     private JComboBox p;
-    private JComboBox comboBox3;
+    private JComboBox plan2;
     private JTextField adl1_1;
     private JTextField adl2_1;
     private JTextField district1;
     private JTextField city1;
     private JTextField pc1;
     private JButton addPatientBtn;
-    private JButton submitButton1;
+    private JButton editPatientSubmit;
     private JPanel dentistCal;
     private JPanel hygienistCal;
 
@@ -50,11 +52,15 @@ public class SecretaryPage extends JFrame {
 				int ipID1;
 			    Date dateAppt;
 				Time timeAppt;
-                if (Validation.bookappointment(patientID2.getText(), date1.getText(), t1.getText(), t1.getText(), this.t.GetItemText(this.t.SelectedItem),this.p.GetItemText(this.p.SelectedItem))) {
-			    	ipID1 = getPatientID1();
-					dateAppt = getDate1();
-					timeAppt = getT1();
-					sec.bookAppointment(getPatientID1(), getDate1(), getT1(), getT(), getP());
+                if (Validation.bookappointment(patientID2.getText(), date1.getText(), t1.getText(), t1.getText(), (String)t.getSelectedItem(),(String)p.getSelectedItem())) {
+			    	try {
+                        ipID1 = getPatientID1();
+                        dateAppt = getDate1();
+                        timeAppt = getT1();
+                        sec.bookAppointment(getPatientID1(), getDate1(), getT1(), getT(), getP());
+                    } catch (Exception a) {
+			    	    System.out.println("Failure");
+                    }
 			    }   
                 else {
                     JOptionPane.showMessageDialog(new JFrame(), "Invalid Input", "Dialog", JOptionPane.ERROR_MESSAGE);	
@@ -89,40 +95,32 @@ public class SecretaryPage extends JFrame {
     }
 
     public Treatment getT() {
-        String type = this.t.GetItemText(this.t.SelectedItem);
+        String type = (String)t.getSelectedItem();
         switch(type) {
-            case (type.equals("Checkup")):
+            case ("Checkup"):
                 return Treatment.CHECKUP;
-                break;
-            case (type.equals("Hygiene")):
+            case ("Hygiene"):
                 return Treatment.HYGIENE;
-                break;
-            case (type.equals("Silver Filling")):
+            case ("Silver Filling"):
                 return Treatment.SILVER_FILLING;
-                break;
-            case (type.equals("White filling")):
+            case ("White filling"):
                 return Treatment.WHITE_FILLING;
-                break;
-            case (type.equals("Gold Crown")):
+            case ("Gold Crown"):
                 return Treatment.GOLD_CROWN;
-                break;
             default:
                 return Treatment.CHECKUP;
         }
     }
 
     public Prtner getP() {
-        String ptnr = this.p.GetItemText(this.t.SelectedItem);
+        String ptnr = (String)p.getSelectedItem();
         switch(ptnr) {
-            case (ptnr.equals("Dentist")):
+            case ("Dentist"):
                 return Prtner.DENTIST;
-                break;
-            case (ptnr.equals("Hygienist")):
+            case ("Hygienist"):
                 return Prtner.HYGIENIST;
-                break;
             default:
                 return Prtner.DENTIST;
-                break;
         }
     }
 

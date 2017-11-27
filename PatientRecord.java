@@ -91,7 +91,7 @@ public class PatientRecord {
 		this.forename =  forename;
 	}
 
-	public void setSurname(String surname)) {
+	public void setSurname(String surname) {
 		this.surname =  surname;
 	}
 

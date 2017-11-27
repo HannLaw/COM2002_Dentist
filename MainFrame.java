@@ -1,4 +1,4 @@
-package com2002;
+//package com2002;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -34,7 +34,7 @@ public class MainFrame extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
-						    SecretaryPage sFrame = new SecretaryPage("Secretary Dentistry View"); 
+						    SecretaryPage sFrame = new SecretaryPage();
 			            }
 			        });
 	    	}
@@ -45,7 +45,7 @@ public class MainFrame extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
-						    PartnerPage dFrame = new Partnerpage("Dentist View"); 
+						    PartnerPage dFrame = new PartnerPage();
 			            }
 			        }); 
 	    	}
@@ -56,7 +56,7 @@ public class MainFrame extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
-						    PartnerPage hFrame = new PartnerPage("Hygienist View"); 
+						    PartnerPage hFrame = new PartnerPage();
 			            }
 			        }); 
 	    	}

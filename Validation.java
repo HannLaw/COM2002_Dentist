@@ -1,4 +1,4 @@
-package com2002;
+//package com2002;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -9,7 +9,7 @@ import java.util.Date;
 public class Validation {
 
 	public static boolean bookappointment(String PatientID, String date, String t1, String t2, String t, String p)  {
-		if ( isNumeric(PatientID) && isDate(date) && inTimeFrame(t1,t2) && timeFree(t1,t2) 
+		if ( isNumeric(PatientID) && isDate(date) && inTimeFrame(t1,t2) && timeFree(t1)
 				&& validTreatment(t) && validPartner(p)) {	
 		    return false;
 	    }
