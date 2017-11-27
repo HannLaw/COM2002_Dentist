@@ -32,7 +32,7 @@ public class Secretary {
 }	
 			
 	
-	
+	// Views all appointments for the week starting with the date given as an argument. 
 	public void viewAppointments(Date d) throws Exception { 
 		try { 
 			
@@ -45,11 +45,8 @@ public class Secretary {
 			int lastDate = 0;
 			int numDaysNxtMonth;
 			statement = connect.createStatement();
-			System.out.println(year);
-			System.out.println(date);
-			System.out.println(month);
 			
-			
+			//Find out how many days are in the month we are in. 
 			 switch (month+1) {
 	            case 1:
 	            case 3:
@@ -78,6 +75,7 @@ public class Secretary {
 	                System.out.println("Invalid month.");
 	                break;
 	        }
+			//Work out how many days are in next month. 
 			if  ( (date+7) > lastDate ){
 					numDaysNxtMonth = (date+7) - lastDate; 
 			}
@@ -85,7 +83,7 @@ public class Secretary {
 			
 			System.out.println(numDaysNxtMonth);
 			
-			
+			//Use numDaysNxtMonth to execute the appropriate query. 
 			if (numDaysNxtMonth == 0) {
 			resultSet = statement
 					.executeQuery("select dateOfAppointment from dentistry.appointments WHERE dateOfAppointment BETWEEN '"+ year + "-" + (month+1) + "-"+ date + "' AND '" + year + "-" + (month+1) + "-" + (date+7) + "';");
@@ -101,7 +99,7 @@ public class Secretary {
 			
 			 
 			 
-			
+			//Print the result
 			while (resultSet.next()) {
 
 	            Date date0 = resultSet.getDate("dateOfAppointment");
@@ -124,7 +122,7 @@ public class Secretary {
 			String partner = p.name();
 			int timeTaken;
 			
-			
+			//Find the time taken for the treatment. 
 			if (t == Treatment.CHECKUP || t == Treatment.HYGIENE ) {
 				timeTaken = 20;
 			}
@@ -133,17 +131,44 @@ public class Secretary {
 			int hours = t1.getHours(); 
 			int minutes = t1.getMinutes();
 			
-			
-			preparedStatement = connect
-                    .prepareStatement("insert into  dentistry.appointments values (?, ?, ?, ? , ?, ?, ?)");
-		    preparedStatement.setDate(1, new java.sql.Date(date.getYear(), date.getMonth(), date.getDay()));
-            preparedStatement.setTime(2, t1);
-            preparedStatement.setTime(3, new Time(hours,timeTaken,minutes));
-            preparedStatement.setString(4, partner);
-            preparedStatement.setInt(5, patientID);
-            preparedStatement.setString(6, treatment);
-            preparedStatement.setBoolean(7, false);
-            preparedStatement.executeUpdate();
+			//Use the timeTaken to insert the right endTime and other details in the database. 
+			if (timeTaken == 60) {
+				preparedStatement = connect
+						.prepareStatement("insert into  dentistry.appointments values (?, ?, ?, ? , ?, ?, ?)");
+				preparedStatement.setDate(1, new java.sql.Date(date.getYear(), date.getMonth(), date.getDay()));
+				preparedStatement.setTime(2, t1);
+				preparedStatement.setTime(3, new Time((hours + 1),minutes,00));
+				preparedStatement.setString(4, partner);
+				preparedStatement.setInt(5, patientID);
+				preparedStatement.setString(6, treatment);
+				preparedStatement.setBoolean(7, false);
+				preparedStatement.executeUpdate();
+			}
+			else if ((minutes + timeTaken) < 60){
+				preparedStatement = connect
+						.prepareStatement("insert into  dentistry.appointments values (?, ?, ?, ? , ?, ?, ?)");
+				preparedStatement.setDate(1, new java.sql.Date(date.getYear(), date.getMonth(), date.getDay()));
+				preparedStatement.setTime(2, t1);
+				preparedStatement.setTime(3, new Time(hours,(minutes + 20),00));
+				preparedStatement.setString(4, partner);
+				preparedStatement.setInt(5, patientID);
+				preparedStatement.setString(6, treatment);
+				preparedStatement.setBoolean(7, false);
+				preparedStatement.executeUpdate();
+			}
+			else {
+				preparedStatement = connect
+						.prepareStatement("insert into  dentistry.appointments values (?, ?, ?, ? , ?, ?, ?)");
+				preparedStatement.setDate(1, new java.sql.Date(date.getYear(), date.getMonth(), date.getDay()));
+				preparedStatement.setTime(2, t1);
+				preparedStatement.setTime(3, new Time(hours,(minutes + 20),00));
+				preparedStatement.setString(4, partner);
+				preparedStatement.setInt(5, patientID);
+				preparedStatement.setString(6, treatment);
+				preparedStatement.setBoolean(7, false);
+				preparedStatement.executeUpdate();
+			}
+				
 			
 		}catch (Exception e) {
             throw e;
@@ -159,6 +184,7 @@ public class Secretary {
 			
 			String partner = p.name();
 			
+			//Book a full day worth of appointment for the partner in question. 
 			preparedStatement = connect
                     .prepareStatement("insert into  dentistry.appointments values (?, ?, ?, ? , ?, ?, ?)");
 		    preparedStatement.setDate(1, new java.sql.Date(d.getYear(), d.getMonth(), d.getDay()));
@@ -182,6 +208,7 @@ public class Secretary {
 			 
 			createConnection();
 			
+			//Deletes the appointment for a certain patient to see a certain partner
             String partner = p.name();
             preparedStatement = connect
                     .prepareStatement("DELETE FROM appointments WHERE (patientID = " + PatientID + ") AND (partner = '" + partner + "');" );
@@ -200,7 +227,7 @@ public class Secretary {
 			createConnection();
 			String partner = p.name();
 			
-			//Find appointments for the week UNFINISHED
+			//Find all appointments future and previous for a given patient and partner
 			statement = connect.createStatement();
 			resultSet = statement
 					.executeQuery("SELECT dateOfAppointment FROM dentistry.appointments WHERE (patientID = "+ PatientID + ") AND (partner = '" + partner + "' );");
@@ -227,6 +254,7 @@ public class Secretary {
 			String nop = hcp.name();
 			int patientID = patient.getPatientID();
 			
+			//Suscribes patient to a healthcare plan. 
             preparedStatement = connect
                     .prepareStatement("UPDATE patients SET healthCarePlan = '"+ nop + "' WHERE patientID = "+ patientID +" ;" );
             preparedStatement.executeUpdate();
@@ -246,6 +274,7 @@ public class Secretary {
 			patient.setNameOfPlan(NoP.NOPLAN);
 			int patientID = patient.getPatientID();
 			
+			//Unsuscribes patient from a given healthcare plan. 
             preparedStatement = connect
                     .prepareStatement("UPDATE patients SET healthCarePlan = '-' WHERE patientID = "+ patientID +" ;" );
             preparedStatement.executeUpdate();
@@ -257,6 +286,7 @@ public class Secretary {
         }
 	}
 	
+	//Closes connection and statement/result sets. 
     private void close() {
         try {
             if (resultSet != null) {

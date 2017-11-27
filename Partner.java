@@ -30,7 +30,7 @@ public class Partner {
             	 	System.out.print("");
              }	
 }	
-			
+	//Views appointments for the day. 		
 	public void dayView(Prtner p) throws Exception { 
 		try { 
 			
@@ -43,9 +43,6 @@ public class Partner {
 			int month = date.getMonth();
 			int day = date.getDate();
 			String partner = p.name();
-			System.out.println(year);
-			System.out.println(month);
-			System.out.println(day);
 			
 			resultSet = statement
 					.executeQuery("select * from dentistry.appointments WHERE (dateOfAppointment = '"+ (year+1900) + "-" + (month+1) + "-"+ day + "');");
