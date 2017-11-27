@@ -1,12 +1,15 @@
 package COM2002_Dentist;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.sql.Time;
 
 public class Secretary {
@@ -33,7 +36,7 @@ public class Secretary {
 			
 	
 	// Views all appointments for the week starting with the date given as an argument. 
-	public void viewAppointments(Date d) throws Exception { 
+	public ResultSet viewAppointments(Date d) throws Exception { 
 		try { 
 			
 			createConnection();
@@ -76,8 +79,8 @@ public class Secretary {
 	                break;
 	        }
 			//Work out how many days are in next month. 
-			if  ( (date+7) > lastDate ){
-					numDaysNxtMonth = (date+7) - lastDate; 
+			if  ( (date+6) > lastDate ){
+					numDaysNxtMonth = (date+6) - lastDate; 
 			}
 			else numDaysNxtMonth = 0; 
 			
@@ -86,26 +89,45 @@ public class Secretary {
 			//Use numDaysNxtMonth to execute the appropriate query. 
 			if (numDaysNxtMonth == 0) {
 			resultSet = statement
-					.executeQuery("select dateOfAppointment from dentistry.appointments WHERE dateOfAppointment BETWEEN '"+ year + "-" + (month+1) + "-"+ date + "' AND '" + year + "-" + (month+1) + "-" + (date+7) + "';");
+					.executeQuery("select * from dentistry.appointments WHERE dateOfAppointment BETWEEN '"+ year + "-" + (month+1) + "-"+ date + "' AND '" + year + "-" + (month+1) + "-" + (date+7) + "';");
 			}
 			else {
 				
 				resultSet = statement
-						.executeQuery("select dateOfAppointment from dentistry.appointments WHERE dateOfAppointment BETWEEN '"+ year + "-" + (month+1) + "-"+ date + "' AND '" + year + "-" + (month + 2) + "-" + numDaysNxtMonth + "';");
+						.executeQuery("select * from dentistry.appointments WHERE dateOfAppointment BETWEEN '"+ year + "-" + (month+1) + "-"+ date + "' AND '" + year + "-" + (month + 2) + "-" + numDaysNxtMonth + "';");
 				
 			}
 				
 			
 			
 			 
-			 
-			//Print the result
+			 /*
+			int iterations = 0;
 			while (resultSet.next()) {
 
 	            Date date0 = resultSet.getDate("dateOfAppointment");
-	            System.out.println("Date: " + date0);
+	            Time stime = resultSet.getTime("startTime");
+	            Time etime = resultSet.getTime("endTime");
+	            String partner = resultSet.getString("partner");
+	            int pID = resultSet.getInt("patientID");
+	            String trtmnt = resultSet.getString("treatmentName");
+	            boolean seen = resultSet.getBoolean("seen");
+	            
+	            DateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+	            String date1 = sdf.format(date0);
+	            DateFormat time1 = new SimpleDateFormat("HH.mm.ss");
+	            String t1 = time1.format(stime);
+	            DateFormat time2 = new SimpleDateFormat("HH.mm.ss");
+	            String t2 = time2.format(etime);
+	            String i = Integer.toString(pID);
+	            String b = Boolean.toString(seen);
+	        	
+	            String finalString = date1 + " " + t1 + " " + t2 + " " + partner + " " + i + " " + trtmnt + " " + b; 
+	            System.out.println(finalString);
+	            iterations ++; 
 	        }
-			
+	        */
+		return resultSet;	
 		}catch (Exception e) {
             throw e;
         } finally {
