@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 public class PartnerPage {
-    private JPanel panel1;
+    public JPanel partPagePanel;
     private JTabbedPane tabbedPane1;
     private JTextField textField1;
     private JTextField textField2;

@@ -35,6 +35,7 @@ public class MainFrame extends JFrame {
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
 						    SecretaryPage sFrame = new SecretaryPage();
+						    System.out.println("Pressed sec button");
 			            }
 			        });
 	    	}
@@ -46,6 +47,7 @@ public class MainFrame extends JFrame {
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
 						    PartnerPage dFrame = new PartnerPage();
+							System.out.println("Pressed dent button");
 			            }
 			        }); 
 	    	}
@@ -57,6 +59,7 @@ public class MainFrame extends JFrame {
 	    	  	    SwingUtilities.invokeLater(new Runnable() {
 					    public void run() {
 						    PartnerPage hFrame = new PartnerPage();
+							System.out.println("Pressed hyg button");
 			            }
 			        }); 
 	    	}

@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class SecretaryPage extends JFrame {
     private JTabbedPane tabbedPane1;
-    private JPanel panel1;
+    public JPanel secPagePanel;
     private JTextField patientID2;
     private JTextField firstName2;
     private JTextField surname2;
