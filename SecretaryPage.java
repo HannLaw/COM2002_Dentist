@@ -7,7 +7,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class SecretaryPage extends Secretary {
+public class SecretaryPage extends JFrame {
     private JTabbedPane tabbedPane1;
     private JPanel panel1;
     private JTextField patientID2;
@@ -65,8 +65,6 @@ public class SecretaryPage extends Secretary {
     }
 
     // Get methods
-    String[] typeCombo = {"Checkup", "Hygiene", "Silver Filling", "White Filling", "Gold Crown"};
-    t = new JComboBox(typeCombo);
     // Booking an appointment
     public int getPatientID1() {
         String pID1 = patientID1.getText();
@@ -89,5 +87,26 @@ public class SecretaryPage extends Secretary {
         int minute = Integer.valueOf(time.substring(3, 4));
         Time timeAppt = new Time(hour, minute,00);
         return timeAppt;
+    }
+
+    public Treatment getT() {
+        String type = this.t.GetItemText(this.t.SelectedItem);
+        switch(type) {
+            case (type.equals("Checkup")):
+                return CHECKUP;
+                break;
+            case (type.equals("Hygiene")):
+                return HYGIENE;
+                break;
+            case (type.equals("Silver Filling")):
+                return SILVER_FILLING;
+                break;
+            case (type.equals("White filling")):
+                return WHITE_FILLING;
+                break;
+            case (type.equals("Gold Crown")):
+                return GOLD_CROWN;
+                break;
+        }
     }
 }
