@@ -2,11 +2,13 @@ package com2002;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -187,7 +189,9 @@ public class SqlTest extends JFrame {
         }
     }
 
-	public SqlTest() {
+	public SqlTest(String title) {
+		super(title);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("noun_20400_cc.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		try {

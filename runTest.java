@@ -1,5 +1,6 @@
 package com2002;
 
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
 public class runTest {
@@ -8,7 +9,7 @@ public class runTest {
 		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SqlTest frame = new SqlTest(); 
+				SqlTest frame = new SqlTest("test"); 
 				frame.setVisible(true);
 	        }
 	    });
