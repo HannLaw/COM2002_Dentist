@@ -1,4 +1,4 @@
-package com2002;
+//package com2002;
 import javax.swing.*;
 
 import java.awt.event.ActionEvent;
@@ -77,8 +77,32 @@ public class SecretaryPage extends JFrame {
         addPatientBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PatientRecord pRec = new PatientRecord(Ttl.MR,getPlan(),getFirstName3(),getSurname3(),getContactNo(),getADL1(),getPostcode(),getDoB(),patientID, getRemCheckups(),getRemHyg(),getRemRep());
-                addPatient(pRec);
+                try {
+                    PatientRecord pRec = new PatientRecord(Ttl.MR, getPlan(), getFirstName3(), getSurname3(), getContactNo(), getADL1(), getPostcode(), getDoB(), getRemCheckups(), getRemHyg(), getRemRep());
+                    addPatient(pRec);
+                } catch (Exception c) {
+                    System.out.println("Oops");
+                }
+            }
+        });
+        weekDate1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    viewAppointments(getWeekDate(weekDate1));
+                } catch (Exception c) {
+                    System.out.println("No date shown");
+                }
+            }
+        });
+        weekDate2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    viewAppointments(getWeekDate(weekDate2));
+                } catch (Exception c) {
+                    System.out.println("No date shown");
+                }
             }
         });
     }
@@ -363,7 +387,7 @@ public class SecretaryPage extends JFrame {
         }
 	}
 	
-	public void suscribePatient(PatientRecord patient, NoP hcp) throws Exception { 
+	public void subscribePatient(PatientRecord patient, NoP hcp) throws Exception {
 		try { 
 			 
 			createConnection();
@@ -372,7 +396,7 @@ public class SecretaryPage extends JFrame {
 			String nop = hcp.name();
 			int patientID = patient.getPatientID();
 			
-			//Suscribes patient to a healthcare plan. 
+			//Subscribes patient to a healthcare plan.
             preparedStatement = connect
                     .prepareStatement("UPDATE patients SET healthCarePlan = '"+ nop + "' WHERE patientID = "+ patientID +" ;" );
             preparedStatement.executeUpdate();
@@ -384,7 +408,7 @@ public class SecretaryPage extends JFrame {
         }
 	}
 	
-	public void unsuscribePatient(PatientRecord patient) throws Exception { 
+	public void unsubscribePatient(PatientRecord patient) throws Exception {
 		try { 
 			 
 			createConnection();
@@ -392,7 +416,7 @@ public class SecretaryPage extends JFrame {
 			patient.setNameOfPlan(NoP.NOPLAN);
 			int patientID = patient.getPatientID();
 			
-			//Unsuscribes patient from a given healthcare plan. 
+			//Unsubscribes patient from a given healthcare plan.
             preparedStatement = connect
                     .prepareStatement("UPDATE patients SET healthCarePlan = '-' WHERE patientID = "+ patientID +" ;" );
             preparedStatement.executeUpdate();
@@ -418,6 +442,48 @@ public class SecretaryPage extends JFrame {
         } 
         catch (Exception e) {
 
+        }
+    }
+
+    public void addPatient(PatientRecord patient) throws Exception {
+        try {
+
+            createConnection();
+
+            String ttl = patient.getTitle().name();
+            String nop = patient.getNameOfPlan().name();
+            String fn = patient.getForename();
+            String ln = patient.getSurname();
+            String cn = patient.getContactNumber();
+            String hn = patient.getHouseNumber();
+            String pc = patient.getPostCode();
+            int doby = patient.getDateOfBirth().getYear();
+            int dobm = patient.getDateOfBirth().getMonth();
+            int dobd = patient.getDateOfBirth().getDate();
+            int cu = patient.getRemainingCheckUps();
+            int hv = patient.getRemainingHygieneVisits();
+            int r = patient.getRemainingRepairs();
+
+
+            preparedStatement = connect
+                    .prepareStatement("insert into  dentistry.patients values (?, ?, ?, ? , ?, ?, ?, ? ,? ,? ,? ,default)");
+            preparedStatement.setString(1,ttl);
+            preparedStatement.setString(2,fn);
+            preparedStatement.setString(3,ln);
+            preparedStatement.setDate(4, new java.sql.Date(doby,dobm,dobd));
+            preparedStatement.setString(5,cn);
+            preparedStatement.setString(6, hn);
+            preparedStatement.setString(7,pc);
+            preparedStatement.setString(8,nop);
+            preparedStatement.setInt(9, cu);
+            preparedStatement.setInt(10, hv);
+            preparedStatement.setInt(11, r);
+            preparedStatement.executeUpdate();
+
+        }catch (Exception e) {
+            throw e;
+        } finally {
+            close();
         }
     }
   
@@ -555,6 +621,15 @@ public class SecretaryPage extends JFrame {
             default:
                 return 0;
         }
+    }
+
+    public Date getWeekDate(JTextField d) {
+	    String weekDate = d.getText();
+        int yearW = Integer.valueOf(weekDate.substring(6));
+        int monthW = Integer.valueOf(weekDate.substring(3,4));
+        int dayW = Integer.valueOf(weekDate.substring(0,1));
+        Date dateW = new Date(yearW,monthW,dayW);
+        return dateW;
     }
 
 }

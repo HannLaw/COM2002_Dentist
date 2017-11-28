@@ -16,7 +16,7 @@ public class PatientRecord {
 	private int remainingHygieneVisits;
 	private int remainingRepairs;
 
-	public PatientRecord(Ttl title, NoP nameOfPlan, String forename, String surname, String contactNumber, String houseNumber, String postCode, Date dateOfBirth, int patientID, int remainingCheckUps, int remainingHygieneVisits, int remainingRepairs) {
+	public PatientRecord(Ttl title, NoP nameOfPlan, String forename, String surname, String contactNumber, String houseNumber, String postCode, Date dateOfBirth, int remainingCheckUps, int remainingHygieneVisits, int remainingRepairs) {
 		this.title = title;
 		this.nameOfPlan = nameOfPlan;
 		this.forename = forename;

@@ -7,7 +7,7 @@ public class Main {
 	
 	public static void main(String[] args) throws Exception {
 		
-		PatientRecord Paul = new PatientRecord(Ttl.MR, NoP.NHS,"Paul", "Hudson", "007" , "34", "13 S10", new Date (93, 23, 01), 4, 0, 0, 0);
+		//PatientRecord Paul = new PatientRecord(Ttl.MR, NoP.NHS,"Paul", "Hudson", "007" , "34", "13 S10", new Date (93, 23, 01), 4, 0, 0, 0);
  
         Secretary dao1 = new Secretary();
         dao1.viewAppointments(new Date(2017, 10, 30));
