@@ -1,3 +1,4 @@
+package com2002;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,9 +7,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class SecretaryPage extends JFrame {
+public class SecretaryPage extends Secretary {
     private JTabbedPane tabbedPane1;
-    public JPanel secPagePanel;
+    private JPanel panel1;
     private JTextField patientID2;
     private JTextField firstName2;
     private JTextField surname2;
@@ -21,28 +22,57 @@ public class SecretaryPage extends JFrame {
     private JTextField surname3;
     private JTextField dob1;
     private JTextField contact1;
-    private JTextField patientID3;
-    private JTextField firstName4;
-    private JTextField surname4;
-    private JTextField weekDate1;
-    private JTextField weekDate2;
+    private JTextField textField18;
+    private JTextField textField19;
+    private JTextField textField20;
     private JComboBox t;
     private JButton bookingSubmit;
     private JButton searchAppt;
     private JComboBox p;
-    private JComboBox plan2;
+    private JComboBox comboBox3;
     private JTextField adl1_1;
     private JTextField adl2_1;
     private JTextField district1;
     private JTextField city1;
     private JTextField pc1;
     private JButton addPatientBtn;
-    private JButton editPatientSubmit;
+    private JButton submitButton1;
     private JPanel dentistCal;
     private JPanel hygienistCal;
 
 
-    public SecretaryPage() {
+    public SecretaryPage() extend jFrame {
+		public static void main(String[] args) throws Exception {
+		    Secretary sec = new Secretary();
+	        ResultSet rs = sec.viewAppointments(new Date(2017,10,30));
+            // It creates and displays the table
+		    JTable table = new JTable(buildTableModel(rs)); 
+		}
+		
+		public static DefaultTableModel buildTableModel(ResultSet rs)
+        throws SQLException {
+
+             ResultSetMetaData metaData = rs.getMetaData();
+             // names of columns
+             Vector<String> columnNames = new Vector<String>();
+             int columnCount = metaData.getColumnCount();
+             for (int column = 1; column <= columnCount; column++) {
+                 columnNames.add(metaData.getColumnName(column));
+             }
+
+    // data of the table
+    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+    while (rs.next()) {
+        Vector<Object> vector = new Vector<Object>();
+        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+            vector.add(rs.getObject(columnIndex));
+        }
+        data.add(vector);
+    }
+
+    return new DefaultTableModel(data, columnNames);
+
+    }
 
 
         bookingSubmit.addActionListener(new ActionListener() {
@@ -52,43 +82,47 @@ public class SecretaryPage extends JFrame {
 				int ipID1;
 			    Date dateAppt;
 				Time timeAppt;
-                if (Validation.bookappointment(patientID1.getText(), date1.getText(), t1.getText(), t1.getText(), (String)t.getSelectedItem(),(String)p.getSelectedItem())) {
-			    	try {
-                        ipID1 = getPatientID1();
-                        dateAppt = getDate1();
-                        timeAppt = getT1();
-                        sec.bookAppointment(getPatientID1(), getDate1(), getT1(), getT(), getP());
-                    } catch (Exception a) {
-                        JOptionPane.showMessageDialog(new JFrame(), "Invalid Input", "Dialog", JOptionPane.ERROR_MESSAGE);
-                    }
+                if (Validation.bookappointment(patientID2.getText(), date1.getText(), t1.getText(), t1.getText(), this.t.GetItemText(this.t.SelectedItem),this.p.GetItemText(this.p.SelectedItem))) {
+			    	ipID1 = getPatientID1(patientID1.getText());
+					dateAppt = getDate1(date1.getText());
+					timeAppt = getT1(t1.getText());
+					sec.bookAppointment(ipID1, dateAppt, timeAppt, t, p);
 			    }   
                 else {
                     JOptionPane.showMessageDialog(new JFrame(), "Invalid Input", "Dialog", JOptionPane.ERROR_MESSAGE);	
                 }					
             }
         });
-        addPatientBtn.addActionListener(new ActionListener() {
+		addPatientBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PatientRecord pRec = new PatientRecord(Ttl.MR,getPlan(),getFirstName3(),getSurname3(),getContactNo(),getADL1(),getPostcode(),getDoB(),patientID, getRemCheckups(),getRemHyg(),getRemRep());
                 Secretary sec = new Secretary();
-                sec.addPatient(pRec);
+				//int ipID1;
+			    ////Date dateAppt;
+				Time timeAppt;
+                if (Validation.addPatient(firstName3.getText(), surname3.getText(), dob1.getText(), contact1.getText(), this.p.GetItemText(this.p.SelectedItem))) {
+			    	//ipID1 = getPatientID1(patientID1.getText());
+					//dateAppt = getDate1(date1.getText());
+					//timeAppt = getT1(t1.getText());
+					sec.addPatient(getPatientID1(), getDate1(), getT1(), t, p);
+			    }   
+                else {
+                    JOptionPane.showMessageDialog(new JFrame(), "Invalid Input", "Dialog", JOptionPane.ERROR_MESSAGE);	
+                }					
             }
         });
     }
 
     // Get methods
-
-
+    String[] typeCombo = {"Checkup", "Hygiene", "Silver Filling", "White Filling", "Gold Crown"};
+    t = new JComboBox(typeCombo);
     // Booking an appointment
-    public int getPatientID1() {
-        String pID1 = patientID1.getText();
+    public int getPatientID1(String pID1) {
         int ipID1 = Integer.valueOf(pID1);
         return ipID1;
     }
 
-    public Date getDate1() {
-        String d1 = date1.getText();
+    public Date getDate1(String d1) {
         int year = Integer.valueOf(d1.substring(6));
         int month = Integer.valueOf(d1.substring(3,4));
         int day = Integer.valueOf(d1.substring(0,1));
@@ -96,121 +130,12 @@ public class SecretaryPage extends JFrame {
         return dateAppt;
     }
 
-    public Time getT1() {
-        String time = t1.getText();
+    public Time getT1(String t1) {
         int hour = Integer.valueOf(time.substring(0, 1));
         int minute = Integer.valueOf(time.substring(3, 4));
         Time timeAppt = new Time(hour, minute,00);
         return timeAppt;
     }
 
-    public Treatment getT() {
-        String type = (String)t.getSelectedItem();
-        switch(type) {
-            case ("Checkup"):
-                return Treatment.CHECKUP;
-            case ("Hygiene"):
-                return Treatment.HYGIENE;
-            case ("Silver Filling"):
-                return Treatment.SILVER_FILLING;
-            case ("White filling"):
-                return Treatment.WHITE_FILLING;
-            case ("Gold Crown"):
-                return Treatment.GOLD_CROWN;
-            default:
-                return Treatment.CHECKUP;
-        }
-    }
-
-    public Prtner getP() {
-        String ptnr = (String)p.getSelectedItem();
-        switch(ptnr) {
-            case ("Dentist"):
-                return Prtner.DENTIST;
-            case ("Hygienist"):
-                return Prtner.HYGIENIST;
-            default:
-                return Prtner.DENTIST;
-        }
-    }
-
-    // Adding a patient
-    public String getFirstName3() {
-        return firstName3.getText();
-    }
-
-    public String getSurname3() {
-        return surname3.getText();
-    }
-
-    public Date getDoB() {
-        String birth = dob1.getText();
-        int yearB = Integer.valueOf(birth.substring(6));
-        int monthB = Integer.valueOf(birth.substring(3,4));
-        int dayB = Integer.valueOf(birth.substring(0,1));
-        Date dateB = new Date(yearB,monthB,dayB);
-        return dateB;
-    }
-
-    public String getContactNo() {
-        return contact1.getText();
-    }
-
-    public NoP getPlan() {
-        String name = (String)plan2.getSelectedItem();
-        switch(name) {
-            case ("No Plan"):
-                return NoP.NOPLAN;
-            case ("NHS"):
-                return NoP.NHS;
-            case ("Maintenance Filling"):
-                return NoP.MAINTENANCE;
-            case ("Oral Health"):
-                return NoP.ORALHEALTH;
-            case ("Dental Repair"):
-                return NoP.DENTALREPAIR;
-            default:
-                return NoP.NOPLAN;
-        }
-    }
-
-    public String getADL1() {
-            return adl1_1.getText();
-    }
-
-    public String getPostcode() {
-        return pc1.getText();
-    }
-
-    public int getRemCheckups() {
-        switch(getPlan()) {
-            case NOPLAN:
-                return 0;
-            default:
-                return 2;
-        }
-    }
-
-    public int getRemHyg() {
-        switch(getPlan()) {
-            case NOPLAN:
-                return 0;
-            case ORALHEALTH:
-                return 4;
-            default:
-                return 2;
-        }
-    }
-
-    public int getRemRep() {
-        switch (getPlan()) {
-            case NHS:
-                return 6;
-            case DENTALREPAIR:
-                return 2;
-            default:
-                return 0;
-        }
-    }
-
+	
 }
