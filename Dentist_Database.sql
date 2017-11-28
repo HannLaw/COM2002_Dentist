@@ -1,4 +1,5 @@
 CREATE DATABASE dentistry;
+USE dentistry;
  CREATE TABLE Patients (
     title ENUM('Mr', 'Mrs', 'Miss', 'Ms', 'Dr') NOT NULL,
     forename VARCHAR(20) NOT NULL,
@@ -30,7 +31,7 @@ CREATE DATABASE dentistry;
     partner ENUM('Dentist', 'Hygienist') NOT NULL,
     patientID INT UNSIGNED NOT NULL DEFAULT 0,
     treatmentName VARCHAR(20) NOT NULL,
-	  seen BOOLEAN NOT NULL,
+	seen BOOLEAN NOT NULL,
     PRIMARY KEY (dateOfAppointment , startTime , partner)
 );
 
@@ -84,3 +85,8 @@ CREATE DATABASE dentistry;
    ('MAINTENANCE', 2, 2, 0, 15.00),
    ('ORALHEALTH', 2, 4, 0, 21.00),
    ('DENTALREPAIR', 2, 2, 2, 36.00);
+   
+CREATE USER dentistryuser IDENTIFIED BY 'dentistryuserpw';
+
+grant usage on *.* to dentistryuser@localhost identified by 'dentistryuserpw';
+grant all privileges on dentistry.* to dentistryuser@localhost;
