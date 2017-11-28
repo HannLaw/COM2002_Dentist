@@ -14,7 +14,6 @@ public class PartnerPage extends  JFrame {
     private JTextField surname;
     private JButton viewApptSubmit;
     private JTextField dayDate;
-    private JPanel dayCal;
     private JTextField weekDate;
     private JFrame j = this;
     private String t = j.getTitle();
