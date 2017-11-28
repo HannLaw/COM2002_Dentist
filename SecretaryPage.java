@@ -89,7 +89,7 @@ public class SecretaryPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    viewAppointments(getWeekDate(weekDate1));
+                    viewDAppointments(getWeekDate(weekDate1));
                 } catch (Exception c) {
                     System.out.println("No date shown");
                 }
@@ -99,7 +99,7 @@ public class SecretaryPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    viewAppointments(getWeekDate(weekDate2));
+                    viewHAppointments(getWeekDate(weekDate2));
                 } catch (Exception c) {
                     System.out.println("No date shown");
                 }
