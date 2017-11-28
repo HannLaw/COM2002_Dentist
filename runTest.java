@@ -8,7 +8,8 @@ public class runTest {
 		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SqlTest frame = new SqlTest(); // MainFrame Class doesn't currently work
+				SqlTest frame = new SqlTest(); 
+				frame.setVisible(true);
 	        }
 	    });
     }
