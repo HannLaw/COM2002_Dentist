@@ -145,14 +145,29 @@ public class SecretaryPage extends JFrame {
 			if (t == Treatment.CHECKUP || t == Treatment.HYGIENE ) {
 				timeTaken = 20;
 			}
+            else if (t == Treatment.BLANK) {
+			    timeTaken = 6380;
+            }
 			else timeTaken = 60;
 			
 			int hours = t1.getHours(); 
 			int minutes = t1.getMinutes();
 			int year = date.getYear();
 			
-			//Use the timeTaken to insert the right endTime and other details in the database. 
-			if (timeTaken == 60) {
+			//Use the timeTaken to insert the right endTime and other details in the database.
+            if (timeTaken == 6380){
+                preparedStatement = connect
+                        .prepareStatement("insert into  dentistry.appointments values (?, ?, ?, ? , ?, ?, ?)");
+                preparedStatement.setDate(1, new java.sql.Date((year-1900), date.getMonth(), date.getDay()));
+                preparedStatement.setTime(2, t1);
+                preparedStatement.setTime(3, new Time((hours + 8),minutes,00));
+                preparedStatement.setString(4, partner);
+                preparedStatement.setInt(5, patientID);
+                preparedStatement.setString(6, treatment);
+                preparedStatement.setBoolean(7, false);
+                preparedStatement.executeUpdate();
+            }
+			else if (timeTaken == 60) {
 				preparedStatement = connect
 						.prepareStatement("insert into  dentistry.appointments values (?, ?, ?, ? , ?, ?, ?)");
 				preparedStatement.setDate(1, new java.sql.Date((year-1900), date.getMonth(), date.getDay()));
@@ -652,7 +667,7 @@ public class SecretaryPage extends JFrame {
             case ("Gold Crown"):
                 return Treatment.GOLD_CROWN;
             default:
-                return Treatment.CHECKUP;
+                return Treatment.BLANK;
         }
     }
 
@@ -750,7 +765,7 @@ public class SecretaryPage extends JFrame {
     public Date getWeekDate(JTextField d) {
 	    String weekDate = d.getText();
         int yearW = Integer.valueOf(weekDate.substring(6,10));
-        int monthW = Integer.valueOf(weekDate.substring(3,5));
+        int monthW = Integer.valueOf(weekDate.substring(3,5))-1;
         int dayW = Integer.valueOf(weekDate.substring(0,2));
         Date dateW = new Date(yearW,monthW,dayW);
         return dateW;
