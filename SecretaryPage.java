@@ -1,5 +1,6 @@
 import javax.swing.*;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -45,35 +46,28 @@ public class SecretaryPage extends JFrame {
     private JTextField pc1;
     private JButton addPatientBtn;
     private JButton editPatientSubmit;
-    private JPanel dentistCal;
     private JPanel hygienistCal;
     private JTable CalenderD;
-	private JTable CalenderH;
+    private JTable CalenderH;
 
     public SecretaryPage() {
 
-
+        //setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("noun_20400_cc.png")));
         bookingSubmit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-				int ipID1;
-			    Date dateAppt;
-				Time timeAppt;
-                if (Validation.bookappointment(patientID1.getText(), date1.getText(), t1.getText(), t1.getText(), (String)t.getSelectedItem(),(String)p.getSelectedItem())) {
-			    	try {
-                        ipID1 = getPatientID1();
-                        dateAppt = getDate1();
-                        timeAppt = getT1();
-                        bookAppointment(getPatientID1(), getDate1(), getT1(), getT(), getP());
-                    } catch (Exception a) {
-                        JOptionPane.showMessageDialog(new JFrame(), "Invalid Input", "Dialog", JOptionPane.ERROR_MESSAGE);
-                    }
-			    }   
-                else {
-                    JOptionPane.showMessageDialog(new JFrame(), "Invalid Input", "Dialog", JOptionPane.ERROR_MESSAGE);	
-                }					
+                //if (Validation.bookappointment(patientID1.getText(), date1.getText(), t1.getText(), t1.getText(), (String)t.getSelectedItem(),(String)p.getSelectedItem())) {
+                try {
+                    bookAppointment(getPatientID1(), getDate1(), getT1(), getT(), getP());
+                } catch (Exception a) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Invalid Input", "Dialog", JOptionPane.ERROR_MESSAGE);
+                }
             }
-        });
+            // }
+            //  else {
+            //     JOptionPane.showMessageDialog(new JFrame(), "Invalid Input", "Dialog", JOptionPane.ERROR_MESSAGE);
+            // }
+            });
         addPatientBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -88,26 +82,35 @@ public class SecretaryPage extends JFrame {
         weekDate1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    viewDAppointments(getWeekDate(weekDate1));
-                } catch (Exception c) {
-                    System.out.println("No date shown");
-                }
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        SqlTest frame = new SqlTest("Dentist Calender",getWeekDate(weekDate1));
+                        frame.setVisible(true);
+                    }
+                });
             }
         });
         weekDate2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    viewHAppointments(getWeekDate(weekDate2));
-                } catch (Exception c) {
-                    System.out.println("No date shown");
-                }
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        SqlTest frame = new SqlTest("Hygienist Calender",getWeekDate(weekDate2));
+                        frame.setVisible(true);
+                    }
+                });
             }
         });
     }
 
-    
+    public Object[][] rows() {
+        Object[][] row = {
+                {"Date","Start","End","Partner","PatiantID","Treatment","Seen"},
+                {"Date","Start","End","Partner","PatiantID","Tent","Seen"}
+        };
+        return row;
+    }
+
     //Secretary Methods
     
 	private Connection connect = null;
@@ -146,12 +149,13 @@ public class SecretaryPage extends JFrame {
 			
 			int hours = t1.getHours(); 
 			int minutes = t1.getMinutes();
+			int year = date.getYear();
 			
 			//Use the timeTaken to insert the right endTime and other details in the database. 
 			if (timeTaken == 60) {
 				preparedStatement = connect
 						.prepareStatement("insert into  dentistry.appointments values (?, ?, ?, ? , ?, ?, ?)");
-				preparedStatement.setDate(1, new java.sql.Date(date.getYear(), date.getMonth(), date.getDay()));
+				preparedStatement.setDate(1, new java.sql.Date((year-1900), date.getMonth(), date.getDay()));
 				preparedStatement.setTime(2, t1);
 				preparedStatement.setTime(3, new Time((hours + 1),minutes,00));
 				preparedStatement.setString(4, partner);
@@ -163,7 +167,7 @@ public class SecretaryPage extends JFrame {
 			else if ((minutes + timeTaken) < 60){
 				preparedStatement = connect
 						.prepareStatement("insert into  dentistry.appointments values (?, ?, ?, ? , ?, ?, ?)");
-				preparedStatement.setDate(1, new java.sql.Date(date.getYear(), date.getMonth(), date.getDay()));
+				preparedStatement.setDate(1, new java.sql.Date((year-1900), date.getMonth(), date.getDay()));
 				preparedStatement.setTime(2, t1);
 				preparedStatement.setTime(3, new Time(hours,(minutes + 20),00));
 				preparedStatement.setString(4, partner);
@@ -175,9 +179,9 @@ public class SecretaryPage extends JFrame {
 			else {
 				preparedStatement = connect
 						.prepareStatement("insert into  dentistry.appointments values (?, ?, ?, ? , ?, ?, ?)");
-				preparedStatement.setDate(1, new java.sql.Date(date.getYear(), date.getMonth(), date.getDay()));
+				preparedStatement.setDate(1, new java.sql.Date((year-1900), date.getMonth(), date.getDay()));
 				preparedStatement.setTime(2, t1);
-				preparedStatement.setTime(3, new Time(hours,(minutes + 20),00));
+				preparedStatement.setTime(3, new Time((hours+1),(minutes + 20),00));
 				preparedStatement.setString(4, partner);
 				preparedStatement.setInt(5, patientID);
 				preparedStatement.setString(6, treatment);
@@ -220,8 +224,7 @@ public class SecretaryPage extends JFrame {
 	}
 
 	public void viewDAppointments(Date d) throws SQLException,Exception { 
-		try { 
-			
+		try {
 			createConnection();
 			
 			int year = d.getYear();
@@ -259,14 +262,14 @@ public class SecretaryPage extends JFrame {
 			if (numDaysNxtMonth == 0) {
 
 				resultSet1 = statement
-					.executeQuery("SELECT * FROM dentistry.appointments WHERE partner = 'Dentitst' AND dateOfAppointment BETWEEN '"+ year +
+					.executeQuery("SELECT * FROM dentistry.appointments WHERE partner = 'Dentist' AND dateOfAppointment BETWEEN '"+ year +
 							"-" + (month+1) + "-"+ date + "' AND '" + year + "-" + (month+1) + "-" + (date+7) + "';");
 
 			}
 			else {
 				
 				resultSet1 = statement
-						.executeQuery("SELECT * FROM dentistry.appointments WHERE partner = 'Dentitst' AND dateOfAppointment BETWEEN '"+ year +
+						.executeQuery("SELECT * FROM dentistry.appointments WHERE partner = 'Dentist' AND dateOfAppointment BETWEEN '"+ year +
 								"-" + (month+1) + "-"+ date + "' AND '" + year + "-" + (month + 2) + "-" + numDaysNxtMonth + "';");
 				
 			}
@@ -274,11 +277,11 @@ public class SecretaryPage extends JFrame {
             String[][] aptArray = new String[amountOfAppointments+1][7];
 			int i = 0;
 			while (resultSet1.next()) {
-
 				Date date0 = resultSet1.getDate("dateOfAppointment");
 	            Time stime = resultSet1.getTime("startTime");
 	            Time etime = resultSet1.getTime("endTime");
 	            String partner = resultSet1.getString("partner");
+                //System.out.println(partner);
 	            int pID = resultSet1.getInt("patientID");
 	            String trtmnt = resultSet1.getString("treatmentName");
 	            boolean seen = resultSet1.getBoolean("seen");
@@ -291,17 +294,20 @@ public class SecretaryPage extends JFrame {
 	            String t2 = time2.format(etime);
 	            String pID2 = Integer.toString(pID);
 	            String b = Boolean.toString(seen);
-	        	
+
 	            aptArray[i][0] = date1;
 	            aptArray[i][1] = t1;
 	            aptArray[i][2] = t2; 
 	            aptArray[i][3] = partner; 
 	            aptArray[i][4] = pID2; 
 	            aptArray[i][5] = trtmnt; 
-	            aptArray[i][6] = b; 
+	            aptArray[i][6] = b;
+	            System.out.println(aptArray[i][3]);
 	            i ++; 
 	        }
-			CalenderD = new JTable(aptArray,(Object[]) columns());
+            CalenderD = new JTable(aptArray,(Object[]) columns());
+            System.out.println(columns()[1]);
+
 			if (resultSet1 != null) {
                 resultSet1.close();
             }
@@ -311,6 +317,10 @@ public class SecretaryPage extends JFrame {
             close();
         }
 	}
+
+    public void ChangeName(JTable table, int col_index, Object col_name){
+        table.getColumnModel().getColumn(col_index).setHeaderValue(col_name);
+    }
 	
 	public void viewHAppointments(Date d) throws SQLException,Exception { 
 		try { 
@@ -599,19 +609,32 @@ public class SecretaryPage extends JFrame {
     }
 
     public Date getDate1() {
-        String d1 = date1.getText();
-        int year = Integer.valueOf(d1.substring(6));
-        int month = Integer.valueOf(d1.substring(3,4));
-        int day = Integer.valueOf(d1.substring(0,1));
-        Date dateAppt = new Date(year,month,day);
+	    Date dateAppt=null;
+        try {
+            String d1 = date1.getText();
+            int year = Integer.valueOf(d1.substring(6,10));
+            int month = Integer.valueOf(d1.substring(3,5));
+            int day = Integer.valueOf(d1.substring(0,2));
+            dateAppt = new Date(year,month,day);
+            return dateAppt;
+        } catch (Exception a) {
+            JOptionPane.showMessageDialog(new JFrame(), "Invalid dat", "Dialog", JOptionPane.ERROR_MESSAGE);
+        }
         return dateAppt;
     }
 
     public Time getT1() {
-        String time = t1.getText();
-        int hour = Integer.valueOf(time.substring(0, 1));
-        int minute = Integer.valueOf(time.substring(3, 4));
-        Time timeAppt = new Time(hour, minute,00);
+	    Time timeAppt =null;
+        try {
+            String time = t1.getText();
+            int hour = Integer.valueOf(time.substring(0, 2));
+            int minute = Integer.valueOf(time.substring(3, 5));
+            timeAppt = new Time(hour, minute,00);
+            return timeAppt;
+        } catch (Exception a) {
+            JOptionPane.showMessageDialog(new JFrame(), "Invalid time", "Dialog", JOptionPane.ERROR_MESSAGE);
+        }
+
         return timeAppt;
     }
 
@@ -726,9 +749,9 @@ public class SecretaryPage extends JFrame {
 
     public Date getWeekDate(JTextField d) {
 	    String weekDate = d.getText();
-        int yearW = Integer.valueOf(weekDate.substring(6));
-        int monthW = Integer.valueOf(weekDate.substring(3,4));
-        int dayW = Integer.valueOf(weekDate.substring(0,1));
+        int yearW = Integer.valueOf(weekDate.substring(6,10));
+        int monthW = Integer.valueOf(weekDate.substring(3,5));
+        int dayW = Integer.valueOf(weekDate.substring(0,2));
         Date dateW = new Date(yearW,monthW,dayW);
         return dateW;
     }

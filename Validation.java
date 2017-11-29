@@ -43,7 +43,7 @@ public class Validation {
 	
 	public static boolean inTimeFrame(String str,String str2)  {
 		try {
-		    DateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		    DateFormat sdf = new SimpleDateFormat("hh:mm");
 		    sdf.parse(str);
 		    Integer firstChar = Integer.parseInt(str.substring(0,1));
 		    Integer secondChar = Integer.parseInt(str.substring(1,2));
